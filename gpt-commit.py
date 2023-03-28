@@ -73,11 +73,8 @@ def assemble_diffs(parsed_diffs, cutoff):
 
 
 async def complete(prompt):
-    message = {"role": "user", "content": prompt[: PROMPT_CUTOFF + 100]}
-
-    query = json.dumps({
-        "messages": [message],
-    })
+    message = prompt[: PROMPT_CUTOFF + 100]
+    query = message
 
     process = Popen(["ygka", query], stdin=PIPE, stdout=PIPE, stderr=PIPE, text=True)
 
