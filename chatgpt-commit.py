@@ -10,7 +10,7 @@ from subprocess import PIPE, Popen
 
 DIFF_PROMPT = "Generate a conventional commit message of the following code changes:"
 COMMIT_MSG_PROMPT = (
-    "Using no more than 50 characters, "
+    "Using no more than 150 characters, "
     "generate a conventional commit message from these summaries:"
 )
 PROMPT_CUTOFF = 10000
