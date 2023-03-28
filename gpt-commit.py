@@ -9,10 +9,10 @@ import json
 from subprocess import PIPE, Popen
 
 
-DIFF_PROMPT = "Generate a succinct summary of the following code changes:"
+DIFF_PROMPT = "Generate a conventional commit message of the following code changes:"
 COMMIT_MSG_PROMPT = (
     "Using no more than 50 characters, "
-    "generate a descriptive commit message from these summaries:"
+    "generate a conventional commit message from these summaries:"
 )
 PROMPT_CUTOFF = 10000
 
@@ -85,9 +85,7 @@ async def complete(prompt):
 
     if process.returncode != 0:
         raise Exception(f"ygka failed with error code {process.returncode}: {stderr.strip()}")
-
-    completion_resp = json.loads(stdout)
-    completion = completion_resp["choices"][0]["message"]["content"].strip()
+    completion = stdout
 
     return completion
 
