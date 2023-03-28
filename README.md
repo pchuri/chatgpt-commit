@@ -1,25 +1,21 @@
-# `gpt-commit`
+# `chatgpt-commit`
+I was inspired by Markuswt's gpt-commit and made some modifications to enable it to be used through web access instead of just the chatgpt API.
 
-Generate commit messages using GPT-3. To use `gpt-commit`, simply invoke it whenever you'd use `git commit`. Git will prompt you to edit the generated commit message.
+Generate commit messages using ChatGPT. To use `chatgpt-commit`, simply invoke it whenever you'd use `git commit`. Git will prompt you to edit the generated commit message.
 
 ```
 git add .
-./gpt-commit.py
+./chatgpt-commit.py
 ```
 
 ## Getting Started
 
-Install `openai` and clone `gpt-commit`.
+Install `ygka` and clone `chatgpt-commit`.
 
 ```
 pip3 install ygka
-git clone git@github.com:pchuri/chatgpt-commit.git
-```
-
-
-Set up ygka
-```
 ygka 'hello'
+git clone git@github.com:pchuri/chatgpt-commit.git
 ```
 
 ### Modify `git commit` (optional)
