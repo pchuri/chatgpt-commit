@@ -12,22 +12,23 @@ git add .
 Install `openai` and clone `gpt-commit`.
 
 ```
-pip3 install openai
-git clone git@github.com:markuswt/gpt-commit.git
+pip3 install ygka
+git clone git@github.com:pchuri/chatgpt-commit.git
 ```
 
-Set the environment variable `OPENAI_API_KEY` to your [OpenAI API key](https://platform.openai.com/account/api-keys), e.g. by adding the following line to your `.bashrc`.
 
+Set up ygka
 ```
-export OPENAI_API_KEY=<YOUR API KEY>
+ygka 'hello'
 ```
-
-Alternatively, you can set the `openai.api_key` variable in `gpt-commit.py`. You can also set `openai.organization` this way (optional).
 
 ### Modify `git commit` (optional)
+If you want `git commit` to automatically invoke `chatgpt-commit`, copy `chatgpt-commit.py` and `prepare-commit-msg` to the `.git/hooks` directory in any project where you want to modify `git commit`.
 
-If you want `git commit` to automatically invoke `gpt-commit`, copy `gpt-commit.py` and `prepare-commit-msg` to the `.git/hooks` directory in any project where you want to modify `git commit`.
+```
+sudo -s cp chatgpt-commit.py /usr/local/bin
+cp prepare-commit-msg [your-repo]/.git/hooks
+```
 
 ## Privacy Disclaimer
-
-`gpt-commit` uses the [OpenAI API](https://platform.openai.com/docs) to generate commit messages. Both file names and contents from files that contain staged changes will be shared with OpenAI when using `gpt-commit`. OpenAI will process this data according to their [terms of use](https://openai.com/policies/terms-of-use) and [API data usage policies](https://openai.com/policies/api-data-usage-policies). On March 1st 2023 OpenAI pledged that by default, they would not use data submitted by customers via their API to train or improve their models, and that this data will be retained for a maximum of 30 days, after which it will be deleted. 
+`chatgpt-commit` uses the [OpenAI API](https://platform.openai.com/docs) to generate commit messages. Both file names and contents from files that contain staged changes will be shared with OpenAI when using `gpt-commit`. OpenAI will process this data according to their [terms of use](https://openai.com/policies/terms-of-use) and [API data usage policies](https://openai.com/policies/api-data-usage-policies). On March 1st 2023 OpenAI pledged that by default, they would not use data submitted by customers via their API to train or improve their models, and that this data will be retained for a maximum of 30 days, after which it will be deleted. 

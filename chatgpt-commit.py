@@ -5,7 +5,6 @@ import asyncio
 import subprocess
 import sys
 import asyncio
-import json
 from subprocess import PIPE, Popen
 
 
