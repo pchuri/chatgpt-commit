@@ -2,11 +2,12 @@
 
 import argparse
 import asyncio
-import os
 import subprocess
 import sys
+import asyncio
+import json
+from subprocess import PIPE, Popen
 
-import openai
 
 DIFF_PROMPT = "Generate a succinct summary of the following code changes:"
 COMMIT_MSG_PROMPT = (
@@ -14,8 +15,6 @@ COMMIT_MSG_PROMPT = (
     "generate a descriptive commit message from these summaries:"
 )
 PROMPT_CUTOFF = 10000
-openai.organization = os.getenv("OPENAI_ORG_ID")
-openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
 def get_diff(ignore_whitespace=True):
@@ -74,12 +73,22 @@ def assemble_diffs(parsed_diffs, cutoff):
 
 
 async def complete(prompt):
-    completion_resp = await openai.ChatCompletion.acreate(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": prompt[: PROMPT_CUTOFF + 100]}],
-        max_tokens=128,
-    )
-    completion = completion_resp.choices[0].message.content.strip()
+    message = {"role": "user", "content": prompt[: PROMPT_CUTOFF + 100]}
+
+    query = json.dumps({
+        "messages": [message],
+    })
+
+    process = Popen(["ygka", query], stdin=PIPE, stdout=PIPE, stderr=PIPE, text=True)
+
+    stdout, stderr = process.communicate()
+
+    if process.returncode != 0:
+        raise Exception(f"ygka failed with error code {process.returncode}: {stderr.strip()}")
+
+    completion_resp = json.loads(stdout)
+    completion = completion_resp["choices"][0]["message"]["content"].strip()
+
     return completion
 
 
